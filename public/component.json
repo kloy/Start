@@ -1,0 +1,11 @@
+{
+  "name": "spa-framework",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "*",
+    "underscore": "*",
+    "backbone": "*",
+    "stateMachine": "*",
+    "requirejs-text": "*"
+  }
+}
