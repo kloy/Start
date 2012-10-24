@@ -7,7 +7,8 @@ define(function (require) {
     var _widgets = {},
         _runningWidgets = {},
         mediator = require('mediator')(),
-        _ = require('utils');
+        _ = require('utils'),
+        log = require('log');
 
     return {
 
@@ -18,6 +19,7 @@ define(function (require) {
 
         if (_.isUndefined(_widgets[id])) {
 
+          log.notice("sandbox.register(): Widget: " + id + " registered.");
           _widgets[id] = widget;
         } else {
 
@@ -33,6 +35,7 @@ define(function (require) {
         } else {
 
           delete _widgets[id];
+          log.notice("sandbox.unregister(): Widget: " + id + " unregistered.");
         }
       },
 
@@ -41,7 +44,11 @@ define(function (require) {
 
         if (_.isUndefined(_runningWidgets[id])) {
 
-          return _runningWidgets[id] = _widgets[id](mediator);
+          _runningWidgets[id] = _widgets[id](mediator);
+
+          log.notice("sandbox.start(): Widget: " + id + " started.");
+
+          return _runningWidgets[id];
         } else {
 
           throw "sandbox.start(): Widget with id: " + id + " already running.";
@@ -58,6 +65,7 @@ define(function (require) {
 
           _runningWidgets[id].stop();
           delete _runningWidgets[id];
+          log.notice("sandbox.stop(): Widget: " + id + " stopped.");
         }
       },
 

@@ -8,8 +8,6 @@ define(function (require) {
         StateMachine = require('stateMachine'),
         sm = new StateMachine();
 
-    log.info('manager started');
-
 		return {
 
       stop: function () {
