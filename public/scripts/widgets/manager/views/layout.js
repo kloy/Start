@@ -17,6 +17,6 @@ define(function (require) {
       sidebar: '#sidebar',
       footer: '#footer'
     },
-    template: _.template(require('text!demo/templates/app.html'))
+    template: _.template(require('text!widgets/manager/templates/layout.html'))
   });
 });

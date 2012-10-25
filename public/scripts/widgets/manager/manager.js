@@ -6,17 +6,17 @@ define(function (require) {
 
     var log = require('log'),
         State = require('statelet'),
-        AppLayout = require('./views/app'),
+        Layout = require('./views/layout'),
         $ = require('jquery');
 
-    var $app = new AppLayout().$el;
-    $('#main').empty().append($app);
+    var layout = new Layout();
+    $('#main').empty().append(layout.$el);
 
 		return {
 
       stop: function () {
 
-        $app.remove();
+        layout.$el.remove();
       }
 		};
 	};
