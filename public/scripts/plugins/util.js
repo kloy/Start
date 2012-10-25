@@ -7,6 +7,12 @@ define(function (require) {
 
   return {
 
+    // Expose Underscore's extend
+    extend: function () {
+
+      return _.extend.apply(_, arguments);
+    },
+
     // Expose Underscore's isUndefined
     isUndefined: function () {
 

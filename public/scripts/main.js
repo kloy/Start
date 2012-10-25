@@ -15,17 +15,19 @@ require.config({
     // Backbone
     backbone: '../components/backbone/backbone',
     // RequireJS Text Plugin
-    text: '../components/text/text',
-    // log lib
-    log: './lib/log',
-    // mediator lib,
-    mediator: './lib/mediator',
-    // utils lib
-    utils: './lib/utils',
-    // sandbox lib
-    sandbox: './lib/sandbox',
-    // statemachine lib
-    stateMachine: './lib/statemachine'
+    text: '../components/requirejs-text/text',
+    // log plugin
+    log: './plugins/log',
+    // mediator plugin,
+    mediator: './plugins/mediator',
+    // util plugin
+    util: './plugins/util',
+    // sandbox plugin
+    sandbox: './plugins/sandbox',
+    // statemachine plugin
+    stateMachine: './plugins/statemachine',
+    // layout plugin
+    layout: './plugins/layout'
   },
 
   // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
@@ -45,7 +47,7 @@ define(function (require) {
 
   'use strict';
 
-  var app = require('./core/app')();
+  var app = require('./demo/app')();
 
   return false;
 });

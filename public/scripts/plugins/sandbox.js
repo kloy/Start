@@ -1,14 +1,15 @@
+// A sandbox is used when you need to start and stop widgets dynmically and
+// have them share a mediator.
 define(function (require) {
 
   'use strict';
 
   return function () {
-
     var _widgets = {},
-        _runningWidgets = {},
-        mediator = require('mediator')(),
-        _ = require('utils'),
-        log = require('log');
+      _runningWidgets = {},
+      mediator = require('mediator')(),
+      _ = require('util'),
+      log = require('log');
 
     return {
 

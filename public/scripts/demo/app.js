@@ -12,6 +12,8 @@ define(function (require) {
     // TODO: Make this happen in a config.
     log.ignore([]);
 
+    // Register our app manager. This should be the first "widget" registered
+    // and started for the app.
     sandbox.register('App/Manager', manager);
     sandbox.start('App/Manager');
   };

@@ -120,7 +120,7 @@
         var preBuilt;
         define(function(require) {
 
-            var EventEmitter = require('./lib/eventemitter');
+            var EventEmitter = require('./plugins/eventemitter');
 
             // This function will try to use a previous result of the construct function
             // This saves rebuilding every time
