@@ -5,7 +5,6 @@
     "jquery": "*",
     "underscore": "*",
     "backbone": "*",
-    "stateMachine": "*",
     "requirejs-text": "*"
   }
 }

@@ -8,7 +8,7 @@ define(function (require) {
     var _widgets = {},
       _runningWidgets = {},
       mediator = require('mediator')(),
-      _ = require('util'),
+      _ = require('underscore'),
       log = require('log');
 
     return {

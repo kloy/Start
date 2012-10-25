@@ -2,7 +2,7 @@ define(function (require) {
 
   'use strict';
 
-  var _ = require('util'),
+  var _ = require('underscore'),
       log = require('log'),
       Layout = require('layout');
 
@@ -17,6 +17,6 @@ define(function (require) {
       sidebar: '#sidebar',
       footer: '#footer'
     },
-    template: _.tmpl(require('text!demo/templates/app.html'))
+    template: _.template(require('text!demo/templates/app.html'))
   });
 });

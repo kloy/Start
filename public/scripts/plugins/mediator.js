@@ -5,7 +5,8 @@ define(function (require) {
   return function () {
 
     var Backbone = require('backbone'),
-        mediator = Object.create(Backbone.Events);
+        _ = require('underscore'),
+        mediator = _.clone(Backbone.Events);
 
     return {
       subscribe: function () {

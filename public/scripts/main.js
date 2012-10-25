@@ -20,12 +20,10 @@ require.config({
     log: './plugins/log',
     // mediator plugin,
     mediator: './plugins/mediator',
-    // util plugin
-    util: './plugins/util',
     // sandbox plugin
     sandbox: './plugins/sandbox',
-    // statemachine plugin
-    stateMachine: './plugins/statemachine',
+    // statelet plugin
+    statelet: './plugins/statelet',
     // layout plugin
     layout: './plugins/layout'
   },

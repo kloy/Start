@@ -2,12 +2,9 @@ define(function (require) {
 
   'use strict';
 
-  var BB = require('backbone'),
-      $ = require('jquery'),
-      Layout,
-      log = require('log');
+  var BB = require('backbone');
 
-  Layout = BB.View.extend({
+  return BB.View.extend({
     // node attributes
     attributes: {
       id: '#example'
@@ -72,6 +69,4 @@ define(function (require) {
       return this;
     }
   });
-
-  return Layout;
 });

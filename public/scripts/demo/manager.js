@@ -5,8 +5,7 @@ define(function (require) {
 	return function (sandbox) {
 
     var log = require('log'),
-        StateMachine = require('stateMachine'),
-        sm = new StateMachine(),
+        State = require('statelet'),
         AppLayout = require('./views/app'),
         $ = require('jquery');
 
