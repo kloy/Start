@@ -10,12 +10,12 @@
   var _ = require('underscore'),
       Backbone = require('backbone');
 
-  function State (value) {
+  function Statelet (value) {
     this._events = _.clone(Backbone.Events);
     this._value = value;
   }
 
-  State.prototype = {
+  Statelet.prototype = {
 
     // Get the current state
     get: function () {
@@ -38,7 +38,7 @@
     /**
      * Watch for any change in value
      * @param {Function} callback
-     * @return {State} callback
+     * @return {this} callback
      */
     watch: function (callback) {
 
@@ -89,5 +89,5 @@
   };
 
   // return the constructor
-  return State;
+  return Statelet;
 });

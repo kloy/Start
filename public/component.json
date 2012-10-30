@@ -5,6 +5,8 @@
     "jquery": "*",
     "underscore": "*",
     "backbone": "*",
+    "backbone.eventbinder": "*",
+    "rivets": "*",
     "requirejs": "*",
     "requirejs-text": "*"
   }

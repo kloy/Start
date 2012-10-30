@@ -2,22 +2,24 @@ define(function (require) {
 
   'use strict';
 
-	return function (sandbox) {
+  var Widget = require('widget'),
+      log = require('log'),
+      $ = require('jquery'),
+      Layout = require('./views/layout');
 
-    var log = require('log'),
-        State = require('statelet'),
-        Layout = require('./views/layout'),
-        $ = require('jquery');
+  return Widget.extend({
+    onStart: function (deferred) {
 
-    var layout = new Layout();
-    $('#main').empty().append(layout.$el);
+      var layout = this._layout = new Layout();
+      $('#main').empty().append(layout.$el);
+      log.info("Manager.onStart(): started.");
+      deferred.resolve();
+    },
+    onStop: function (deferred) {
 
-		return {
-
-      stop: function () {
-
-        layout.$el.remove();
-      }
-		};
-	};
+      this._layout.$el.remove();
+      log.info("Manager.onStop(): stopped.");
+      deferred.resolve();
+    }
+  });
 });

@@ -5,8 +5,10 @@ define(function (require) {
   return function () {
 
     var log = require('log'),
-        manager = require('../widgets/manager/manager'),
-        sandbox = require('sandbox')();
+        Manager = require('../widgets/manager/manager'),
+        managerStarting,
+        Sandbox = require('sandbox'),
+        sandbox = new Sandbox();
 
     // Set the log levels to ignore.
     // TODO: Make this happen in a config.
@@ -14,7 +16,7 @@ define(function (require) {
 
     // Register our app manager. This should be the first "widget" registered
     // and started for the app.
-    sandbox.register('/App/Manager', manager);
-    sandbox.start('/App/Manager');
+    sandbox.register('/App/Manager', Manager);
+    managerStarting = sandbox.start('/App/Manager');
   };
 });

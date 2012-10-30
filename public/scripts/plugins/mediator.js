@@ -1,26 +1,35 @@
+/**
+  Implementation of mediator pattern.
+  @module mediator
+ */
 define(function (require) {
 
   'use strict';
 
-  return function () {
+  /**
+    @constructor Mediator
+   */
+  function Mediator () {
+    var BB = require('backbone'),
+        _ = require('util');
 
-    var Backbone = require('backbone'),
-        _ = require('underscore'),
-        mediator = _.clone(Backbone.Events);
+    this._events = _.clone(BB.Events);
+  }
 
-    return {
-      subscribe: function () {
+  Mediator.prototype = {
+    subscribe: function () {
 
-        mediator.on.apply(mediator, arguments);
-      },
-      unsubscribe: function () {
+      this._events.on.apply(this._events, arguments);
+    },
+    unsubscribe: function () {
 
-        mediator.off.apply(mediator, arguments);
-      },
-      publish: function () {
+      this._events.off.apply(this._events, arguments);
+    },
+    publish: function () {
 
-        mediator.trigger.apply(mediator, arguments);
-      }
-    };
+      this._events.trigger.apply(this._events, arguments);
+    }
   };
+
+  return Mediator;
 });

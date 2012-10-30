@@ -24,8 +24,12 @@ require.config({
     sandbox: './plugins/sandbox',
     // statelet plugin
     statelet: './plugins/statelet',
+    // util plugin
+    util: './plugins/util',
     // layout plugin
-    layout: './plugins/layout'
+    layout: './plugins/layout',
+    // widget plugin
+    widget: './plugins/widget'
   },
 
   // shim underscore(lodash) & backbone (cause we use the non AMD versions here)

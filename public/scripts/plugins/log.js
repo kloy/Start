@@ -1,58 +1,83 @@
-define(function () {
+/**
+  Provides logging functionality that would be expected in a more
+  traidtional Server Side technology. Provides logging groups and a method
+  of ignoring certain groups.
+  @module log
+ */
+define(function (require) {
 
   'use strict';
 
-  var _ignored = {
-    notice: false,
-    info: false,
-    debug: false,
-    warn: false,
-    error: false
-  };
+  /**
+    Hash of ignored groups.
+   */
+  var _ignored = {};
 
   return {
-    // notice logs
+    /**
+      Log to notice group
+      @param [arguments] *args to log
+     */
     notice: function () {
 
       if ( ! _ignored.notice) {
         console.log.apply(console, arguments);
       }
     },
-    // info logs
+    /**
+      Log to info group
+      @param [arguments] *args to log
+     */
     info: function () {
 
       if ( ! _ignored.info) {
         console.info.apply(console, arguments);
       }
     },
-    // debug logs
+    /**
+      Log to debug group
+      @param [arguments] *args to log
+     */
     debug: function () {
 
       if ( ! _ignored.debug) {
         console.debug.apply(console, arguments);
       }
     },
-    // warn logs
+    /**
+      Log to warn group
+      @param [arguments] *args to log
+     */
     warn: function () {
 
       if ( ! _ignored.warn) {
         console.warn.apply(console, arguments);
       }
     },
-    // error logs
+    /**
+      Log to error group
+      @param [arguments] *args to log
+     */
     error: function () {
 
       if ( ! _ignored.error) {
         console.error.apply(console, arguments);
       }
     },
-    // set the levels to ignore
-    ignore: function (levels) {
+    /**
+      Set levels to ignore.
+      @param [arguments] args* of log types as strings.
+     */
+    ignore: function () {
 
-      levels.forEach(function (val) {
+      // Converts arguments to array
+      var levels = [].slice.call(arguments),
+          length = levels.length - 1;
 
-        _ignored[val] = true;
-      });
+      while (length) {
+        _ignored[levels[length]] = true;
+        --length;
+      }
     }
   };
 });
