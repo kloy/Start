@@ -10,8 +10,6 @@ define(function (require) {
     // subclassing of an object
     extend: BB.Model.extend,
 
-    forEach: _.forEach,
-
     isUndefined: _.isUndefined,
 
     clone: _.clone,

@@ -16,20 +16,20 @@ require.config({
     backbone: '../components/backbone/backbone',
     // RequireJS Text Plugin
     text: '../components/requirejs-text/text',
-    // log plugin
-    log: './plugins/log',
-    // mediator plugin,
-    mediator: './plugins/mediator',
-    // sandbox plugin
-    sandbox: './plugins/sandbox',
-    // statelet plugin
-    statelet: './plugins/statelet',
-    // util plugin
-    util: './plugins/util',
-    // layout plugin
-    layout: './plugins/layout',
-    // widget plugin
-    widget: './plugins/widget'
+    // log lib
+    log: './lib/log',
+    // mediator lib
+    mediator: './lib/mediator',
+    // sandbox lib
+    sandbox: './lib/sandbox',
+    // statelet lib
+    statelet: './lib/statelet',
+    // util lib
+    util: './lib/util',
+    // layout lib
+    layout: './lib/layout',
+    // widget lib
+    widget: './lib/widget'
   },
 
   // shim underscore(lodash) & backbone (cause we use the non AMD versions here)
@@ -49,7 +49,8 @@ define(function (require) {
 
   'use strict';
 
-  var app = require('./demo/app')();
+  var App = require('./demo/app'),
+      app = new App();
 
   return false;
 });

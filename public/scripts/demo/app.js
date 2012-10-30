@@ -2,26 +2,30 @@ define(function (require) {
 
   'use strict';
 
-  return function () {
+  var log = require('log'),
+      Manager = require('../widgets/manager/manager'),
+      Sandbox = require('sandbox');
 
-    var log = require('log'),
-        managerId = '/App/Manager',
-        Manager = require('../widgets/manager/manager'),
-        managerStarting,
-        Sandbox = require('sandbox'),
-        sandbox = new Sandbox();
+  function App () {
 
-    // Set the log levels to ignore.
-    // TODO: Make this happen in a config.
-    log.ignore([]);
+    var managerId = this.managerId = '/App/Manager';
+    var sandbox = this.sandbox = new Sandbox();
 
     // Register our app manager. This should be the first "widget" registered
     // and started for the app.
     sandbox.register(managerId, Manager);
-    sandbox.start(managerId).done(function () {
-      // sandbox.stop(managerId).done(function () {
-      //   sandbox.unregister(managerId);
-      // });
-    });
+    sandbox.start(managerId).done(this.managerStarted.bind(this));
+
+    // Set the log levels to ignore.
+    // TODO: Make this happen in a config.
+    log.ignore([]);
+  }
+
+  App.prototype = {
+    managerStarted: function () {
+      log.info("App Started");
+    }
   };
+
+  return App;
 });
