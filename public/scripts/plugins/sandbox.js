@@ -18,9 +18,9 @@ define(function (require) {
     // register a widget to the sandbox
     // id should be unique
     // widget should be an anonymous function or a function reference
-    register: function (id, Widget) {
+    register: function register (id, Widget) {
 
-      if (_.isUndefined(this._widgets[id])) {
+      if (! this.isRegistered(id)) {
 
         log.notice("Sandbox.register(): Widget: " + id + " registered.");
         this._widgets[id] = Widget;
@@ -29,28 +29,41 @@ define(function (require) {
         throw "Sandbox.register(): Widget with id: " + id + " already exists.";
       }
     },
-    // Unregister a widget.
+    // Check if a widget is registered
+    isRegistered: function isRegistered (id) {
+
+      return ! _.isUndefined(this._widgets[id]);
+    },
+    // Deregister a widget.
     // TODO: stop a widget before it is unregistered.
-    unregister: function (id) {
+    deregister: function deregister (id) {
 
-      if (_.isUndefined(this._widgets[id])) {
+      var msg = '';
 
-        throw "Sandbox.unregister(): Widget with id: " + id + " does not exists.";
-      } else {
+      if (this.isRegistered(id)) {
+
+        if (this.isRunning(id)) {
+          msg = "Sandbox.deregister(): Widget with id: " + id + " is running.";
+          msg += " You must stop the widget before deregister it.";
+          throw msg;
+        }
 
         delete this._widgets[id];
-        log.notice("Sandbox.unregister(): Widget: " + id + " unregistered.");
+        log.notice("Sandbox.deregister(): Widget: " + id + " deregister.");
+      } else {
+
+        throw "Sandbox.deregister(): Widget with id: " + id + " does not exists.";
       }
     },
     // start a widget using it's registered id.
-    start: function (id) {
+    start: function start (id) {
 
       var promise,
           fnDone,
           fnFail,
           widget;
 
-      if (_.isUndefined(this._runningWidgets[id])) {
+      if (! this.isRunning(id)) {
 
         widget = new this._widgets[id]();
 
@@ -72,21 +85,23 @@ define(function (require) {
       }
     },
     // stop a widget using it's registered id.
-    stop: function (id) {
+    stop: function stop (id) {
 
       var promise,
           fnDone,
           fnFail;
 
-      if (! _.isUndefined(this._runningWidgets[id])) {
+      if (this.isRunning(id)) {
 
+        // promise's "done" callback
         fnDone = function () {
           delete this._runningWidgets[id];
           log.notice("Sandbox.stop(): Widget: " + id + " stopped.");
         }.bind(this);
 
+        // promise's "fail" callback
         fnFail = function () {
-          log.notice("Sandbox.stop(): Widget: " + id + " failed to stop.");
+          log.error("Sandbox.stop(): Widget: " + id + " failed to stop.");
         }.bind(this);
 
         promise = this._runningWidgets[id].stop();
@@ -97,15 +112,20 @@ define(function (require) {
         throw "Sandbox.stop(): Widget with id: " + id + " is not running.";
       }
     },
+    // Check if a widget is listed as running.
+    isRunning: function isRunning (id) {
+
+      return ! _.isUndefined(this._runningWidgets[id]);
+    },
     // get the instance of a running widget
-    getRunning: function (id) {
+    getRunning: function getRunning (id) {
 
-      if (_.isUndefined(this._runningWidgets[id])) {
-
-        throw "Sandbox.getRunning(): Widget with id: " + id + " is not running.";
-      } else {
+      if (this.isRunning(id)) {
 
         return this._runningWidgets[id];
+      } else {
+
+        throw "Sandbox.getRunning(): Widget with id: " + id + " is not running.";
       }
     }
   };
