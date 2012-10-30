@@ -34,6 +34,8 @@ define(function (require) {
           mediator = args.shift();
           args.push(deferred);
           this.onStart.apply(this, args);
+        } else {
+          deferred.resolve();
         }
       }.bind(this);
 
@@ -59,6 +61,8 @@ define(function (require) {
         if (this.onStop) {
           args.push(deferred);
           this.onStop.apply(this, args);
+        } else {
+          deferred.resolve();
         }
       }.bind(this);
 
