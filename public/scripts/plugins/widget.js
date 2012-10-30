@@ -22,16 +22,23 @@ define(function (require) {
     start: function () {
 
       var deferred = new util.Deferred(),
-          args,
-          mediator;
+          args = [].slice.call(arguments),
+          asyncStart;
 
-      if (this.onStart) {
-        args = [].slice.call(arguments);
-        // mediator should be our 1st argument
-        mediator = args.shift();
-        args.push(deferred);
-        this.onStart.apply(this, args);
-      }
+      asyncStart = function () {
+
+        var mediator;
+
+        if (this.onStart) {
+          // mediator should be our 1st argument
+          mediator = args.shift();
+          args.push(deferred);
+          this.onStart.apply(this, args);
+        }
+      }.bind(this);
+
+      // Exceute start code async
+      util.defer(asyncStart);
 
       return deferred.promise();
     },
@@ -45,13 +52,18 @@ define(function (require) {
     stop: function () {
 
       var deferred = new util.Deferred(),
-          args;
+          args = [].slice.call(arguments),
+          asyncStop;
 
-      if (this.onStop) {
-        args = [].slice.call(arguments);
-        args.push(deferred);
-        this.onStop.apply(this, args);
-      }
+      asyncStop = function () {
+        if (this.onStop) {
+          args.push(deferred);
+          this.onStop.apply(this, args);
+        }
+      }.bind(this);
+
+      // Exceute stop code async
+      util.defer(asyncStop);
 
       return deferred.promise();
     }

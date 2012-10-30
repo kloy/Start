@@ -17,6 +17,6 @@ define(function (require) {
     // Register our app manager. This should be the first "widget" registered
     // and started for the app.
     sandbox.register('/App/Manager', Manager);
-    managerStarting = sandbox.start('/App/Manager');
+    sandbox.start('/App/Manager');
   };
 });
