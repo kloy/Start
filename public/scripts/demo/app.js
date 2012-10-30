@@ -23,7 +23,8 @@ define(function (require) {
 
   App.prototype = {
     managerStarted: function () {
-      log.info("App Started");
+      log.info("Manager started by app.");
+      this.sandbox._mediator.publish('/foo');
     }
   };
 

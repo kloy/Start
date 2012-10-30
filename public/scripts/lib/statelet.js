@@ -18,13 +18,13 @@
   Statelet.prototype = {
 
     // Get the current state
-    get: function () {
+    get: function get () {
 
       return this._value;
     },
 
     // Set the current state
-    set: function (value) {
+    set: function set (value) {
 
       // no change: ignore
       if (value === this._value) {
@@ -40,7 +40,7 @@
      * @param {Function} callback
      * @return {this} callback
      */
-    watch: function (callback) {
+    watch: function watch (callback) {
 
       // if there is a value, run the callback immediately
       var value = this._value;
@@ -60,7 +60,7 @@
      * @param {Function} callback initially added
      * @returns {State}
      */
-    unwatch: function (callback) {
+    unwatch: function unwatch (callback) {
 
       this._events.off('change', callback);
 
@@ -74,7 +74,7 @@
      * @param function
      * @return function
      */
-    when: function (value, callback) {
+    when: function when (value, callback) {
 
       var watcher = function (v) {
         if (v === value) {

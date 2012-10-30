@@ -6,26 +6,62 @@ define(function (require) {
 
   'use strict';
 
+  var BB = require('backbone'),
+      _ = require('util'),
+      log = require('log');
+
   /**
     @constructor Mediator
    */
-  function Mediator () {
-    var BB = require('backbone'),
-        _ = require('util');
+  function Mediator (opts) {
+
+    var defaults = {
+          uidPrefix: 'mediator_'
+        },
+        options = {};
+
+    options = _.extend({}, defaults, opts);
+
+    this.uid = _.uniqueId(options.uidPrefix);
 
     this._events = _.clone(BB.Events);
   }
 
   Mediator.prototype = {
-    subscribe: function () {
+    /**
+      Subscribe to a channel.
+    */
+    subscribe: function subscribe (channel, callback) {
 
-      this._events.on.apply(this._events, arguments);
-    },
-    unsubscribe: function () {
+      var msg;
 
-      this._events.off.apply(this._events, arguments);
+      msg = 'Mediator.subscribe(): channel ' + channel + ', uid ' + this.uid;
+      log.notice(msg, callback);
+      this._events.on.call(this._events, channel, callback);
     },
-    publish: function () {
+    /**
+      Unsubscribe from a channel
+    */
+    unsubscribe: function unsubscribe (channel, callback) {
+
+      var msg;
+
+      msg = 'Mediator.unsubscribe(): channel ' + channel + ', uid ' + this.uid;
+      log.notice(msg, callback);
+
+      this._events.off.call(this._events, channel, callback);
+    },
+    /**
+      Publish a channel
+
+      Args: channels, [*args]
+    */
+    publish: function publish (channel, optionalArgs) {
+
+      var msg;
+
+      msg = 'Mediator.publish(): channel ' + channel + ', uid ' + this.uid;
+      log.notice(msg, arguments);
 
       this._events.trigger.apply(this._events, arguments);
     }

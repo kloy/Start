@@ -18,7 +18,7 @@ define(function (require) {
       Log to notice group
       @param [arguments] *args to log
      */
-    notice: function () {
+    notice: function notice () {
 
       if ( ! _ignored.notice) {
         console.log.apply(console, arguments);
@@ -28,7 +28,7 @@ define(function (require) {
       Log to info group
       @param [arguments] *args to log
      */
-    info: function () {
+    info: function info () {
 
       if ( ! _ignored.info) {
         console.info.apply(console, arguments);
@@ -38,7 +38,7 @@ define(function (require) {
       Log to debug group
       @param [arguments] *args to log
      */
-    debug: function () {
+    debug: function debug () {
 
       if ( ! _ignored.debug) {
         console.debug.apply(console, arguments);
@@ -48,7 +48,7 @@ define(function (require) {
       Log to warn group
       @param [arguments] *args to log
      */
-    warn: function () {
+    warn: function warn () {
 
       if ( ! _ignored.warn) {
         console.warn.apply(console, arguments);
@@ -58,7 +58,7 @@ define(function (require) {
       Log to error group
       @param [arguments] *args to log
      */
-    error: function () {
+    error: function error () {
 
       if ( ! _ignored.error) {
         console.error.apply(console, arguments);
@@ -68,7 +68,7 @@ define(function (require) {
       Set levels to ignore.
       @param [arguments] args* of log types as strings.
      */
-    ignore: function () {
+    ignore: function ignore () {
 
       // Converts arguments to array
       var levels = [].slice.call(arguments),

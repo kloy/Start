@@ -20,6 +20,8 @@ define(function (require) {
     // widget should be an anonymous function or a function reference
     register: function register (id, Widget) {
 
+      console.info("Widget", Widget);
+
       if (! this.isRegistered(id)) {
 
         log.notice("Sandbox.register(): Widget: " + id + " registered.");
@@ -63,6 +65,8 @@ define(function (require) {
           fnFail,
           widget;
 
+      log.notice("Sandbox.start(): Widget: " + id + " starting...");
+
       if (! this.isRunning(id)) {
 
         widget = new this._widgets[id]();
@@ -90,6 +94,8 @@ define(function (require) {
       var promise,
           fnDone,
           fnFail;
+
+      log.notice("Sandbox.stop(): Widget: " + id + " stopping...");
 
       if (this.isRunning(id)) {
 

@@ -7,13 +7,19 @@ define(function (require) {
       $ = require('jquery'),
       Layout = require('./views/layout');
 
-  return Widget.extend({
+  return Widget.sub({
     onStart: function (deferred) {
 
       var layout = this._layout = new Layout();
       $('#main').empty().append(layout.$el);
       log.info("Manager.onStart(): started.");
+
+      this.subscribe('/foo', function () {
+        console.info('foo subscriber', arguments);
+      });
+
       deferred.resolve();
+      this.publish('/foo', 'Keith is awesome.');
     },
     onStop: function (deferred) {
 
