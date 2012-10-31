@@ -11,7 +11,23 @@ define(function (require) {
   /**
     Hash of ignored groups.
    */
-  var _ignored = {};
+  var _ignored = {},
+      slice = Array.prototype.slice,
+      log,
+      moment = require('moment');
+
+  // [Tue Oct 30 08:18:29 2012] [notice] asdf
+  log = function log (level, args) {
+
+    var prefix;
+
+    if ( ! _ignored[level]) {
+      prefix = '[' + moment().format('ddd MMM DD hh:mm:ss YYYY') + ']\t';
+      prefix += '[' + level + ']\t';
+      args.unshift(prefix);
+      console.log.apply(console, args);
+    }
+  };
 
   return {
     /**
@@ -20,9 +36,7 @@ define(function (require) {
      */
     notice: function notice () {
 
-      if ( ! _ignored.notice) {
-        console.log.apply(console, arguments);
-      }
+      log.call(null, 'notice', slice.call(arguments));
     },
     /**
       Log to info group
@@ -30,9 +44,7 @@ define(function (require) {
      */
     info: function info () {
 
-      if ( ! _ignored.info) {
-        console.info.apply(console, arguments);
-      }
+      log.call(null, 'info', slice.call(arguments));
     },
     /**
       Log to debug group
@@ -40,9 +52,7 @@ define(function (require) {
      */
     debug: function debug () {
 
-      if ( ! _ignored.debug) {
-        console.debug.apply(console, arguments);
-      }
+      log.call(null, 'debug', slice.call(arguments));
     },
     /**
       Log to warn group
@@ -50,9 +60,7 @@ define(function (require) {
      */
     warn: function warn () {
 
-      if ( ! _ignored.warn) {
-        console.warn.apply(console, arguments);
-      }
+      log.call(null, 'warn', slice.call(arguments));
     },
     /**
       Log to error group
@@ -60,9 +68,7 @@ define(function (require) {
      */
     error: function error () {
 
-      if ( ! _ignored.error) {
-        console.error.apply(console, arguments);
-      }
+      log.call(null, 'error', slice.call(arguments));
     },
     /**
       Set levels to ignore.

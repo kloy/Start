@@ -8,6 +8,7 @@
     "backbone.eventbinder": "*",
     "rivets": "*",
     "requirejs": "*",
+    "moment": "*",
     "requirejs-text": "*"
   }
 }

@@ -20,8 +20,6 @@ define(function (require) {
     // widget should be an anonymous function or a function reference
     register: function register (id, Widget) {
 
-      console.info("Widget", Widget);
-
       if (! this.isRegistered(id)) {
 
         log.notice("Sandbox.register(): Widget: " + id + " registered.");

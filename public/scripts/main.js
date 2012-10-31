@@ -8,6 +8,8 @@ require.config({
 
   // paths
   paths: {
+    // moment
+    moment: '../components/moment/moment',
     // jQuery
     jquery: '../components/jquery/jquery',
     // Underscore
