@@ -77,12 +77,12 @@ define(function (require) {
     ignore: function ignore () {
 
       // Converts arguments to array
-      var levels = [].slice.call(arguments),
-          length = levels.length - 1;
+      var levels = slice.call(arguments),
+          length = levels.length;
 
       while (length) {
-        _ignored[levels[length]] = true;
         --length;
+        _ignored[levels[length].toLowerCase()] = true;
       }
     }
   };

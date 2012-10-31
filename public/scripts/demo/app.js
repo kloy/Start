@@ -11,14 +11,14 @@ define(function (require) {
     var managerId = this.managerId = '/App/Manager';
     var sandbox = this.sandbox = new Sandbox();
 
+    // Set the log levels to ignore.
+    // TODO: Make this happen in a config.
+    log.ignore('NoTice');
+
     // Register our app manager. This should be the first "widget" registered
     // and started for the app.
     sandbox.register(managerId, Manager);
     sandbox.start(managerId).done(this.managerStarted.bind(this));
-
-    // Set the log levels to ignore.
-    // TODO: Make this happen in a config.
-    log.ignore([]);
   }
 
   App.prototype = {
