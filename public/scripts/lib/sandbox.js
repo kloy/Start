@@ -5,16 +5,16 @@ define(function (require) {
   'use strict';
 
   var _ = require('util'),
-      log = require('log'),
-      Mediator = require('mediator');
+      log = require('log');
 
-  function Sandbox () {
+  function Sandbox (mediator) {
     this._widgets = {};
     this._runningWidgets = {};
-    this._mediator = new Mediator();
+    this._mediator = mediator;
   }
 
   Sandbox.prototype = {
+
     // register a widget to the sandbox
     // id should be unique
     // widget should be an anonymous function or a function reference
@@ -56,18 +56,26 @@ define(function (require) {
       }
     },
     // start a widget using it's registered id.
+    // Require first param is id. optional [*args].
+    // [*args] will be proxied to widget.start(mediator, [*args])
     start: function start (id) {
 
       var promise,
           fnDone,
           fnFail,
-          widget;
+          widget,
+          args;
 
       log.notice("Sandbox.start(): Widget: " + id + " starting...");
 
       if (! this.isRunning(id)) {
 
         widget = new this._widgets[id]();
+        args = [].slice.call(arguments);
+        // shift off id
+        args.shift();
+        // Make the mediator the 1st arg.
+        args.unshift(this._mediator);
 
         fnDone = function () {
           this._runningWidgets[id] = widget;
@@ -78,7 +86,8 @@ define(function (require) {
           log.error("Sandbox.start(): Widget: " + id + " failed to start.");
         }.bind(this);
 
-        promise = widget.start(this._mediator);
+        // Start widget passing a mediator as 1st arg.
+        promise = widget.start.apply(widget, args);
 
         return promise.fail(fnFail).done(fnDone);
       } else {

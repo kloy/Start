@@ -3,7 +3,11 @@ define(function (require) {
   'use strict';
 
   var BB = require('backbone'),
-      _ = require('util');
+      Collection;
 
-  return _.clone(BB.Collection);
+  Collection = BB.Collection.extend({});
+  // Alias sub to extend
+  Collection.sub = Collection.extend;
+
+  return Collection;
 });

@@ -15,6 +15,11 @@ define(function (require) {
     options = util.extend({}, defaults, opts);
 
     this.uid = util.uniqueId(options.uidPrefix);
+
+    // call initialize method if it exists.
+    if (this.initialize) {
+      this.initialize.apply(this, arguments);
+    }
   }
 
   // add backbone style extendability
@@ -100,12 +105,13 @@ define(function (require) {
     },
     /*
       start a widget
+      mediator is required 1st param.
       arguments are proxied to this.onStart with the defferred passed as the
-      1st argument.
+      1st argument. [*args] is the 2nd... arguments
 
       returns promise
     */
-    start: function start () {
+    start: function start (mediator) {
 
       var deferred = new util.Deferred(),
           args = [].slice.call(arguments),
@@ -116,7 +122,7 @@ define(function (require) {
         if (this.onStart) {
           // mediator should be our 1st argument
           this._mediator = args.shift();
-          args.push(deferred);
+          args.unshift(deferred);
           this.onStart.apply(this, args);
         } else {
           deferred.resolve();

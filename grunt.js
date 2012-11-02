@@ -52,8 +52,9 @@ module.exports = function(grunt) {
     watch: {
       files: [
         'public/index.html',
-        'public/scripts/*.js',
-        'public/scripts/**/*.js'
+        'public/scripts/*',
+        'public/scripts/**/*',
+        'public/scripts/**/**/*'
       ],
       tasks: 'lint reload'
     }

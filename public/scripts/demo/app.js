@@ -3,30 +3,23 @@ define(function (require) {
   'use strict';
 
   var log = require('log'),
-      Manager = require('../widgets/manager/manager'),
-      Sandbox = require('sandbox');
+      Mediator = require('mediator'),
+      Sandbox = require('sandbox'),
+      Manager = require('./manager');
 
-  function App () {
+  return function App () {
 
-    var managerId = this.managerId = '/App/Manager';
-    var sandbox = this.sandbox = new Sandbox();
+    // Application core mediator.
+    var mediator = new Mediator(),
+        // Global sandbox for widgets
+        sandbox = new Sandbox(mediator),
+        manager;
 
     // Set the log levels to ignore.
     // TODO: Make this happen in a config.
-    log.ignore('NoTice');
+    log.ignore();
 
-    // Register our app manager. This should be the first "widget" registered
-    // and started for the app.
-    sandbox.register(managerId, Manager);
-    sandbox.start(managerId).done(this.managerStarted.bind(this));
-  }
-
-  App.prototype = {
-    managerStarted: function () {
-      log.info("Manager started by app.");
-      this.sandbox._mediator.publish('/foo');
-    }
+    // Global application manager.
+    manager = new Manager(sandbox, mediator);
   };
-
-  return App;
 });

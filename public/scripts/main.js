@@ -6,6 +6,8 @@ require.config({
 
   baseUrl: "./scripts",
 
+  deps: ['./lib/shim'],
+
   // paths
   paths: {
     // moment
@@ -28,8 +30,12 @@ require.config({
     statelet: './lib/statelet',
     // util lib
     util: './lib/util',
-    // layout lib
-    layout: './lib/layout',
+    // view lib
+    view: './lib/view',
+    // model lib
+    model: './lib/model',
+    // collection lib
+    collection: './lib/collection',
     // widget lib
     widget: './lib/widget'
   },
@@ -48,12 +54,9 @@ require.config({
 
 // kickoff app
 define(function (require) {
-
   'use strict';
 
   var App = require('./demo/app'),
       app = new App();
-
-  return false;
 });
 

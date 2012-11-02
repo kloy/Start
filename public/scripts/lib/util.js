@@ -22,6 +22,17 @@ define(function (require) {
     */
     isUndefined: _.isUndefined,
 
+    isDefined: function () {
+
+      return ! _.isUndefined.apply(_, arguments);
+    },
+
+    /**
+      @link http://underscorejs.org/#isFunction
+      @alias _.isFunction
+    */
+    isFunction: _.isFunction,
+
     /**
       @link http://underscorejs.org/#clone
       @alias _.clone
@@ -51,6 +62,12 @@ define(function (require) {
       @alias _.reject
     */
     reject: _.reject,
+
+    /**
+      @link http://underscorejs.org/#each
+      @alias _.each
+    */
+    each: _.each,
 
     /**
       @link http://underscorejs.org/#uniqueId
