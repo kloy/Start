@@ -4,12 +4,14 @@ define(function (require) {
 
   var $ = require('jquery'),
       _ = require('util'),
-      log = require('log');
+      log = require('log'),
+      Statelet = require('statelet');
 
   function Manager (sandbox, mediator) {
 
     var todosPromise;
 
+    this._contentState = new Statelet();
     this.template = _.template(this.template),
     this.sandbox = sandbox;
     this.mediator = mediator;
@@ -17,6 +19,9 @@ define(function (require) {
     // should be last
     this.render();
     this.swapRegion('content', 'todos');
+    // this.swapRegion('content', 'todos');
+    // this.swapRegion('content', 'todos');
+    this.clearRegion('content');
   }
 
   Manager.prototype = {
@@ -42,13 +47,24 @@ define(function (require) {
 
       $('#main').html(this.template());
     },
+    // Clear a region by id.
+    // TODO: Figure out how to handle async stopping of widget elegantly.
+    clearRegion: function clearRegion (regionId) {
+
+    },
     swapRegion: function swapRegion (regionId, widgetId) {
 
       var regionSelector,
           $region,
           msg,
-          widgetPromise,
-          fnDone;
+          // Previous widget in region's start promise
+          prevStartPromise,
+          // Previous widget in region's stop promise
+          prevStopPromise,
+          onStartDone,
+          onPrevStartDone,
+          onPrevStopDone,
+          state;
 
       // Ensure region is defined
       try {
@@ -70,13 +86,42 @@ define(function (require) {
         return false;
       }
 
-      widgetPromise = this.sandbox.start(widgetId, $region);
-      fnDone = function fnDone () {
+      // Get region's current state
+      state = this._contentState.get();
+
+      onPrevStopDone = function () {
+
+        this['_' + regionId +'Promise'] = this.sandbox.start(widgetId, $region);
+        this['_' + regionId +'Promise'].done(onStartDone);
+      }.bind(this);
+
+      onPrevStartDone = function () {
+
+        this.sandbox.stop(state, $region).done(onPrevStopDone);
+      }.bind(this);
+
+      onStartDone = function () {
+
         var msg = 'Manager.swapRegion().fnDone(): widget "' + widgetId;
         msg += '" started in region "' + regionId + '" sucessfully.';
         log.notice(msg);
-      }.bind(this);
-      widgetPromise.done(fnDone);
+      };
+
+      // Check if we have a current state.
+      // If we do make sure it is not pending to start.
+      // Else stop the current widget.
+      if (_.isDefined(state)) {
+        prevStartPromise = this['_' + regionId +'Promise'];
+        if (prevStartPromise.state() === "pending") {
+
+          prevStartPromise.done(onPrevStartDone);
+        } else {
+          prevStopPromise = this.sandbox.stop(state);
+          // prevStopPromise
+        }
+      } else {
+        onPrevStopDone();
+      }
     }
   };
 

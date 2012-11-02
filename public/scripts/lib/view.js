@@ -15,6 +15,8 @@ define(function (require) {
 
         this.onDestroy();
       }
+
+      this.$el.remove();
     }
   });
 
