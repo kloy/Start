@@ -8,7 +8,10 @@ require.config({
 
   // I like to use this for things that aren't really modules, but need to be
   // ran. Modules modifying jQuery or JS prototypes are good examples.
-  deps: ['shim', 'jquerypp/event/destroyed'],
+  deps: [
+    'shim',
+    'jquerypp/event/destroyed'
+  ],
 
   // paths
   paths: {
@@ -18,6 +21,9 @@ require.config({
     moment: '../components/moment/moment',
     // jQuery
     jquery: '../components/jquery/jquery',
+    'jquerypp/styles': '../../src/vendor/jquerypp/styles',
+    'jquerypp/animate': '../../src/vendor/jquerypp/animate',
+    'jquerypp/event/key': '../../src/vendor/jquerypp/event/key',
     'jquerypp/event/destroyed': '../src/vendor/jquerypp/event/destroyed',
     // Underscore
     underscore: '../components/underscore-amd/underscore',
