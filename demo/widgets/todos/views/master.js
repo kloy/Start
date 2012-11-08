@@ -15,7 +15,6 @@ define(function (require) {
 
     initialize: function initialize () {
 
-      this.template = _.tmpl(this.template);
       this.render();
     },
 

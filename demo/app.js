@@ -15,7 +15,7 @@ define(function (require) {
     this.todos = new Todos();
     this.todos.start(this._hub);
     $('#main-content').append(this.todos.$el);
-    this.todos.stop();
+    // this.todos.stop();
   }
 
   return App;
