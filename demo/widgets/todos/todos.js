@@ -2,7 +2,7 @@ define(function (require) {
 
   'use strict';
 
-  var Widget = require('../widget'),
+  var Widget = require('widget'),
       log = require('log'),
       MasterView = require('./views/master');
 
@@ -18,12 +18,6 @@ define(function (require) {
 
       this.masterView = new MasterView();
       this.$el = this.masterView.$el;
-    },
-
-    onStop: function (dfd) {
-
-      this.masterView.destroy();
-      dfd.resolve();
     }
 	});
 });
