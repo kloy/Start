@@ -2,3 +2,5 @@
 docs
 *.dia
 *.autosave
+node_modules
+components

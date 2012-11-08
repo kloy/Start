@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     pkg: '<json:package.json>',
     server: {
       port: 8000,
-      base: './public'
+      base: '.'
     },
     reload: {
       port: 8001,
@@ -45,16 +45,22 @@ module.exports = function(grunt) {
     lint: {
       grunt: 'grunt.js',
       src: [
-        'public/scripts/*.js',
-        'public/scripts/**/*.js'
+        'demo/*.js',
+        'demo/widgets/*.js',
+        'demo/widgets/*/*.js',
+        'src/*.js',
+        'src/ext/*.js',
+        'src/lib/*.js',
+        'src/sandbox/*.js'
       ]
     },
     watch: {
       files: [
-        'public/index.html',
-        'public/scripts/*',
-        'public/scripts/**/*',
-        'public/scripts/**/**/*'
+        '*',
+        '*/*',
+        '*/*/*',
+        '*/*/*/*',
+        '*/*/*/*/*'
       ],
       tasks: 'lint reload'
     }
