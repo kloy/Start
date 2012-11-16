@@ -40,10 +40,20 @@ module.exports = function(grunt) {
         "options": {
           "node": true
         }
+      },
+      "tests": {
+        "options": {
+          "browser": true,
+          "devel": true,
+          "strict": true
+        }
       }
     },
     lint: {
       grunt: 'grunt.js',
+      tests: [
+        'src/tests/*.js'
+      ],
       src: [
         'demo/*.js',
         'demo/widgets/*.js',
