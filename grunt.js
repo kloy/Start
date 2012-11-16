@@ -62,7 +62,10 @@ module.exports = function(grunt) {
         '*/*/*/*',
         '*/*/*/*/*'
       ],
-      tasks: 'lint reload'
+      tasks: 'lint qunit reload'
+    },
+    qunit: {
+      all: ['http://localhost:8000/test/test.html']
     }
   });
 
@@ -70,5 +73,6 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'lint');
+  grunt.registerTask('test', 'server qunit');
   grunt.registerTask('dev', 'server reload watch');
 };

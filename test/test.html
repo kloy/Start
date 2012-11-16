@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+/*
+  ======== A Handy Little QUnit Reference ========
+  http://docs.jquery.com/QUnit
+
+  Test methods:
+    test( title [, expected ], test )
+    asyncTest( name, expected, test 
+    expect(numAssertions)
+    stop(increment)
+    start(decrement)
+  Test assertions:
+    ok(value, [message])
+    equal(actual, expected, [message])
+    notEqual(actual, expected, [message])
+    deepEqual(actual, expected, [message])
+    notDeepEqual(actual, expected, [message])
+    strictEqual(actual, expected, [message])
+    notStrictEqual(actual, expected, [message])
+    raises(block, [expected], [message])
+*/
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Start.js Test Suite</title>
+  
+  <!-- Load local QUnit styles. -->
+  <link rel="stylesheet" href="../src/vendor/qunit/qunit.css" media="screen">
+  <script src="../src/vendor/qunit/qunit.js"></script>
+
+  <script>
+    // Defer the test runner until requirejs is ready.
+    QUnit.config.autostart = false;
+  </script>
+
+  <!-- Load local requirejs and main config which grabs our tests and app code. -->
+  <script data-main="main" src="../components/requirejs/require.js"></script>
+</head>
+<body>
+  <h1 id="qunit-header">Test Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+    <span>lame test markup</span>
+    <span>normal test markup</span>
+    <span>awesome test markup</span>
+  </div>
+</body>
+</html>
